@@ -1,0 +1,14 @@
+.venv/
+/C5_Yasmina_Hanna_Submission/
+.tools/
+__pycache__/
+.pytest_cache/
+.runtime/
+*.py[cod]
+.env*
+!.env.example
+data/*.sqlite3*
+verification/*.json
+verification/*.txt
+!verification/README.md
+*.zip
