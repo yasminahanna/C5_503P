@@ -76,25 +76,6 @@ The first command verifies business logic, schemas, errors, concurrency, and the
 
 Tests and protocol checks use fresh temporary databases and leave your persistent holds untouched. The SDK integration test uses a clearly labeled scripted model so the tool round trip can be verified without external API credentials; it does not measure a real model's routing ability.
 
-## Record the live-agent demonstration
-
-```powershell
-.\.venv\Scripts\python.exe -m campus_library.agent --demo
-```
-
-This command uses `Agent` and `Runner.run` with the configured OpenAI model. It starts the MCP server automatically and uses a fresh temporary database for each recording attempt. Press Enter at each pause to run the next scenario. The model chooses and calls tools; there are no programmed tool outputs in this live mode.
-
-| Scenario | User request | Expected evidence |
-|---|---|---|
-| Data | Search the catalog for python. Do not reserve anything. | `search_catalog`, B001, 2 available copies |
-| Action | Create a hold for book B001 for student S1001. | `create_hold`, `status: created`, generated hold ID |
-| Orchestration | Reserve a book about agentic systems for student S1001 using reserve_book. | `reserve_book`, B002, hold, internal search/action steps |
-| Failure | Use create_hold with book_id B003 and student_id S1002. Report its error without substituting another book. | `BOOK_UNAVAILABLE`; assistant explains failure |
-
-Terminal lines labeled `[HOST -> MCP CLIENT -> SERVER]` and `[SERVER -> MCP CLIENT -> HOST]` come from actual MCP calls, followed by `ASSISTANT` output from the model. UUID hold IDs and timestamps vary. The orchestration response records internal operations; it is one external MCP call.
-
-Use [the timed speaker notes](docs/speaker_notes.md) for a 6-minute recording. Rehearse once with your own API key and check the visible tool names. Natural-language routing is probabilistic; inspect the actual trace before describing it. Do not call the key-free check a live model demo.
-
 ## Interactive mode and persistence
 
 ```powershell
